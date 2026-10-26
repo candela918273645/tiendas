@@ -1,0 +1,475 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Vis ta Vie Tienda</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Ropa de mujer en Catamarca. Talles hasta el 60. Envío gratis desde $150.000.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap">
+<style>
+/* Layout: tienda minimal en blanco y negro. Cinta negra de avisos que corre, logo centrado en minúscula, menú en mayúsculas chicas, portada en tono nude con frase en minúscula y cursiva, grilla de 2 (celu) a 4 columnas, carrito lateral. Una sola estética clara, a propósito. */
+:root {
+  color-scheme: light;
+  --bg: #ffffff;
+  --ink: #111111;
+  --muted: #6f6a66;
+  --line: #e7e3df;
+  --nude: #efe7df;
+  --soft: #f7f4f1;
+  --ok: #2f6b45;
+  --t1: #ede4da; --t2: #e6e2dc; --t3: #e9dfd8; --t4: #e2ddd5; --t5: #efe9e2; --t6: #e4dad2;
+  --f-body: "Jost", "Helvetica Neue", Arial, sans-serif;
+  --f-serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--f-body); font-weight: 400; font-size: 15px; line-height: 1.5; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.gut { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.in { max-width: 1320px; margin: 0 auto; }
+button, input, select, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: 1px solid var(--ink); outline-offset: 3px; }
+a { color: inherit; }
+em, .it { font-family: var(--f-serif); font-style: italic; font-weight: 400; }
+.mayus { text-transform: uppercase; letter-spacing: .14em; font-size: .72rem; font-weight: 500; }
+
+/* Cinta de avisos */
+.cinta { background: var(--ink); color: var(--bg); overflow: hidden; white-space: nowrap; font-size: .7rem; letter-spacing: .18em; text-transform: uppercase; font-weight: 500; }
+.cinta .rueda { display: inline-flex; gap: 0; padding-block: 9px; animation: correr 38s linear infinite; }
+.cinta span { padding: 0 34px; }
+@keyframes correr { to { transform: translateX(-50%); } }
+
+/* Encabezado */
+header.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
+.barra { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding-block: 16px 10px; }
+.logo { font-family: var(--f-body); font-weight: 400; font-size: 1.9rem; letter-spacing: .08em; text-transform: lowercase; line-height: 1; text-align: center; margin: 0; }
+.logo small { display: block; font-size: .58rem; letter-spacing: .32em; text-transform: uppercase; color: var(--muted); margin-top: 6px; }
+.iconos { justify-self: end; display: flex; gap: 6px; align-items: center; }
+.ico { background: none; border: 0; padding: 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; }
+.ico svg { width: 20px; height: 20px; }
+.ico b { font-weight: 500; }
+.menuBtn { justify-self: start; }
+nav.menu { display: flex; justify-content: center; flex-wrap: wrap; gap: 4px 20px; padding-block: 4px 14px; }
+nav.menu button { background: none; border: 0; padding: 4px 0; cursor: pointer; text-transform: uppercase; letter-spacing: .14em; font-size: .72rem; font-weight: 500; border-bottom: 1px solid transparent; }
+nav.menu button:hover, nav.menu button[aria-current="true"] { border-bottom-color: var(--ink); }
+
+/* Portada */
+.portada { position: relative; background: var(--ink) url("img/portada.jpg") 55% 42% / cover no-repeat; color: #fff; }
+.portada::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgb(0 0 0 / 0) 35%, rgb(0 0 0 / .55) 100%); }
+.portada .in { align-content: end; }
+/* En la compu: foto a la derecha y texto sobre el nude a la izquierda, así no tapa la cara. */
+@media (min-width: 861px) {
+  .portada { background: var(--nude); color: var(--ink); }
+  .portada::before { inset: 0 0 0 50%; background: url("img/portada.jpg") 55% 35% / cover no-repeat; }
+  .portada .in { align-content: center; justify-items: start; text-align: left; padding-right: 52%; }
+  .portada .in > div { max-width: 100%; text-align: left; }
+  .portada .in > div > * { margin-left: 0; text-align: left; }
+  .portada h1 { text-shadow: none !important; font-size: clamp(2.6rem, 5.4vw, 5rem) !important; }
+  .portada p { margin-left: 0 !important; color: var(--muted) !important; }
+  .portada .btn { background: var(--ink) !important; color: var(--bg) !important; border-color: var(--ink) !important; }
+}
+.portada .in { position: relative; }
+.portada .in { min-height: min(640px, 78vh); display: grid; place-items: center; text-align: center; padding-block: 64px; }
+.portada h1 { margin: 0; font-family: var(--f-body); font-weight: 300; font-size: clamp(2.6rem, 8.5vw, 6.4rem); line-height: 1; letter-spacing: -.01em; text-transform: lowercase; text-wrap: balance; }
+.portada h1 em { font-size: 1.1em; }
+.portada h1 { text-shadow: 0 1px 24px rgb(0 0 0 / .25); }
+.portada p { margin: 18px auto 26px; max-width: 40ch; color: rgb(255 255 255 / .88); }
+.portada .btn { background: #fff; color: #111; border-color: #fff; }
+.btn { display: inline-block; border: 1px solid var(--ink); background: var(--ink); color: var(--bg); padding: 13px 34px; cursor: pointer; text-decoration: none; text-transform: uppercase; letter-spacing: .16em; font-size: .72rem; font-weight: 500; }
+.btn.claro { background: transparent; color: var(--ink); }
+.btn[disabled] { opacity: .4; cursor: default; }
+
+/* Beneficios */
+.benef .in { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--line); }
+.benef div { display: grid; justify-items: center; text-align: center; gap: 6px; padding: 26px 10px; }
+.benef svg { width: 26px; height: 26px; stroke: var(--ink); }
+.benef b { font-weight: 500; text-transform: uppercase; letter-spacing: .12em; font-size: .72rem; }
+.benef span { color: var(--muted); font-size: .82rem; }
+
+/* Secciones */
+.seccion .in { padding-block: 56px; display: grid; gap: 28px; }
+.titulo { text-align: center; margin: 0; font-weight: 300; font-size: clamp(1.8rem, 4vw, 2.6rem); text-transform: lowercase; line-height: 1.05; }
+.sub { text-align: center; color: var(--muted); margin: -16px 0 0; font-size: .9rem; }
+.herram { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; border-block: 1px solid var(--line); padding-block: 10px; }
+.herram .cuenta { color: var(--muted); font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; margin: 0; }
+.herram select, .herram input { border: 0; background: transparent; padding: 6px 2px; text-transform: uppercase; letter-spacing: .12em; font-size: .72rem; font-weight: 500; }
+.herram input { border-bottom: 1px solid var(--line); min-width: 0; flex: 1 1 200px; max-width: 320px; text-transform: none; letter-spacing: .02em; font-size: .9rem; }
+
+/* Grilla de productos */
+.grilla { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 34px 18px; }
+.prod { display: grid; gap: 8px; align-content: start; min-width: 0; text-align: center; }
+.foto { position: relative; aspect-ratio: 3 / 4; max-width: 100%; background: var(--t1); overflow: hidden; display: grid; place-items: center; padding: 18px; }
+.foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.foto .ph { font-family: var(--f-serif); font-style: italic; font-size: clamp(1.1rem, 2vw, 1.5rem); line-height: 1.1; color: var(--ink); opacity: .55; text-transform: lowercase; text-wrap: balance; }
+.etq { position: absolute; left: 0; top: 12px; background: var(--bg); padding: 4px 10px; text-transform: uppercase; letter-spacing: .14em; font-size: .62rem; font-weight: 500; }
+.agregar { position: absolute; left: 10px; right: 10px; bottom: 10px; border: 0; background: var(--bg); color: var(--ink); padding: 11px 8px; cursor: pointer; text-transform: uppercase; letter-spacing: .14em; font-size: .66rem; font-weight: 500; opacity: 0; transform: translateY(6px); transition: opacity .2s, transform .2s; }
+.prod:hover .agregar, .agregar:focus-visible { opacity: 1; transform: none; }
+.agregar[disabled] { opacity: .6; cursor: default; }
+@media (hover: none) { .agregar { opacity: 1; transform: none; } }
+.prod h3 { margin: 4px 0 0; font-weight: 400; font-size: .86rem; letter-spacing: .02em; line-height: 1.3; }
+.precio { display: grid; gap: 1px; font-variant-numeric: tabular-nums; font-size: .82rem; color: var(--muted); }
+.precio b { font-weight: 500; color: var(--ink); font-size: .95rem; }
+.precio .transf b { font-size: .9rem; }
+.vars { display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; }
+.vars button { border: 1px solid var(--line); background: var(--bg); padding: 3px 9px; font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }
+.vars button[aria-pressed="true"] { border-color: var(--ink); }
+.vacio { padding: 48px 12px; text-align: center; color: var(--muted); grid-column: 1 / -1; }
+.verMas { justify-self: center; }
+
+/* Cómo comprar */
+.como { background: var(--soft); }
+.como .in { padding-block: 56px; display: grid; gap: 28px; }
+.pasos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; list-style: none; margin: 0; padding: 0; counter-reset: p; }
+.pasos li { counter-increment: p; display: grid; gap: 8px; text-align: center; font-size: .9rem; color: var(--muted); }
+.pasos li::before { content: counter(p); font-family: var(--f-serif); font-style: italic; font-size: 2.2rem; color: var(--ink); line-height: 1; }
+
+/* Pie */
+footer { border-top: 1px solid var(--line); }
+footer .in { display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); gap: 28px; padding-block: 48px 24px; font-size: .86rem; }
+footer h4 { margin: 0 0 12px; text-transform: uppercase; letter-spacing: .14em; font-size: .7rem; font-weight: 500; }
+footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; color: var(--muted); }
+footer button { background: none; border: 0; padding: 0; cursor: pointer; text-align: left; color: inherit; }
+footer .logo { text-align: left; font-size: 1.6rem; }
+footer .legal { grid-column: 1 / -1; border-top: 1px solid var(--line); padding-top: 16px; color: var(--muted); font-size: .74rem; letter-spacing: .06em; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
+
+/* Menú en celu */
+#menuCel { position: fixed; inset: 0; z-index: 20; background: rgb(17 17 17 / .35); }
+#menuCel .hoja { width: min(320px, 86%); height: 100%; background: var(--bg); padding: calc(18px + env(safe-area-inset-top, 0px)) 22px 22px max(22px, env(safe-area-inset-left, 0px)); display: grid; align-content: start; gap: 4px; }
+#menuCel .hoja button { background: none; border: 0; border-bottom: 1px solid var(--line); text-align: left; padding: 14px 0; text-transform: uppercase; letter-spacing: .14em; font-size: .78rem; cursor: pointer; }
+
+/* Carrito */
+#panel { position: fixed; inset: 0; z-index: 20; background: rgb(17 17 17 / .35); display: flex; justify-content: flex-end; }
+#panel .hoja { width: min(430px, 100%); height: 100%; background: var(--bg); display: grid; grid-template-rows: auto 1fr auto; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); padding-right: env(safe-area-inset-right, 0px); }
+.hoja > header { display: flex; justify-content: space-between; align-items: center; padding: 18px 20px; border-bottom: 1px solid var(--line); }
+.hoja h2 { margin: 0; text-transform: uppercase; letter-spacing: .16em; font-size: .8rem; font-weight: 500; }
+.cerrar { border: 0; background: transparent; font-size: 1.5rem; cursor: pointer; line-height: 1; padding: 4px 8px; }
+.cuerpo { overflow-y: auto; padding: 16px 20px; display: grid; gap: 16px; align-content: start; min-width: 0; }
+.item { display: grid; grid-template-columns: 64px 1fr auto; gap: 6px 12px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
+.item .mini { grid-row: span 3; aspect-ratio: 3 / 4; background: var(--t1); }
+.item .n { font-size: .88rem; }
+.item .n small { display: block; color: var(--muted); font-size: .76rem; letter-spacing: .06em; text-transform: uppercase; }
+.item .p { font-variant-numeric: tabular-nums; text-align: right; font-size: .9rem; }
+.item label { grid-column: 2 / -1; display: flex; align-items: center; gap: 8px; font-size: .74rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.item label input { flex: 1; min-width: 0; border: 0; border-bottom: 1px solid var(--line); padding: 4px 2px; font-size: .88rem; text-transform: none; letter-spacing: 0; }
+.cant { display: inline-flex; align-items: center; border: 1px solid var(--line); justify-self: start; }
+.cant button { border: 0; background: transparent; width: 30px; height: 28px; cursor: pointer; }
+.cant span { min-width: 20px; text-align: center; font-variant-numeric: tabular-nums; font-size: .86rem; }
+.quitar { border: 0; background: transparent; color: var(--muted); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; cursor: pointer; justify-self: end; align-self: center; }
+.envio { display: grid; gap: 8px; font-size: .82rem; text-align: center; }
+.envio .bar { height: 3px; background: var(--line); }
+.envio .bar i { display: block; height: 100%; background: var(--ink); }
+.envio.gratis { color: var(--ok); text-transform: uppercase; letter-spacing: .12em; font-size: .72rem; font-weight: 500; }
+.totales { display: grid; gap: 4px; font-variant-numeric: tabular-nums; font-size: .88rem; }
+.totales div { display: flex; justify-content: space-between; gap: 10px; color: var(--muted); }
+.totales .grande { color: var(--ink); font-size: 1rem; font-weight: 500; }
+form.datos { display: grid; gap: 12px; }
+form.datos > label { display: grid; gap: 4px; font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+form.datos input, form.datos textarea { border: 1px solid var(--line); border-radius: 0; padding: 11px 12px; font-size: .92rem; text-transform: none; letter-spacing: 0; background: var(--bg); }
+.grupo { font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 4px 0 0; }
+.opciones { display: grid; gap: 6px; }
+.opciones label { display: flex; align-items: center; gap: 10px; font-size: .9rem; border: 1px solid var(--line); padding: 11px 12px; cursor: pointer; }
+.opciones label:has(input:checked) { border-color: var(--ink); }
+.opciones label span { margin-left: auto; font-variant-numeric: tabular-nums; }
+.hoja .pie { padding: 16px 20px; border-top: 1px solid var(--line); display: grid; gap: 8px; }
+.hoja .pie .btn { width: 100%; text-align: center; }
+.err { color: #a3261c; font-size: .84rem; margin: 0; }
+.resumen { white-space: pre-wrap; font-size: .84rem; background: var(--soft); border: 1px solid var(--line); padding: 12px; user-select: all; }
+.toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(18px + env(safe-area-inset-bottom, 0px)); background: var(--ink); color: var(--bg); padding: 11px 20px; font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; z-index: 30; max-width: calc(100% - 32px); }
+
+@media (min-width: 861px) { .menuBtn { visibility: hidden; } }
+@media (max-width: 860px) {
+  nav.menu { display: none; }
+  .grilla { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 10px; }
+  .benef .in { grid-template-columns: repeat(2, 1fr); }
+  .pasos { grid-template-columns: repeat(2, 1fr); }
+  footer .in { grid-template-columns: 1fr 1fr; }
+  footer .in > div:first-child { grid-column: 1 / -1; }
+  .logo { font-size: 1.55rem; }
+  .ico .txt { display: none; }
+  .seccion .in { padding-block: 40px; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .cinta .rueda { animation: none; } .agregar { transition: none; } }
+</style>
+
+<div class="cinta" aria-label="Avisos"><div class="rueda" id="rueda"></div></div>
+
+<header class="top gut"><div class="in">
+  <div class="barra">
+    <button class="ico menuBtn" id="abrirMenu" aria-label="Menú"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M3 7h18M3 12h18M3 17h18"/></svg></button>
+    <div class="logo">vis ta vie<small>Catamarca</small></div>
+    <div class="iconos">
+      <button class="ico" id="irBuscar" aria-label="Buscar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg></button>
+      <button class="ico" id="abrirBolsa" aria-label="Carrito"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="txt">Carrito</span> (<b id="nBolsa">0</b>)</button>
+    </div>
+  </div>
+  <nav class="menu" id="menu" aria-label="Categorías"></nav>
+</div></header>
+
+<section class="portada gut"><div class="in"><div>
+  <h1>ropa para <em>todas.</em><br>hasta el talle <em>60.</em></h1>
+  <p>Vestidos, denim, tops y abrigos. Todo lo que ves está en el local de Catamarca y te lo confirmamos por WhatsApp.</p>
+  <a class="btn" href="#catalogo">Ver todo</a>
+</div></div></section>
+
+<section class="benef gut" aria-label="Beneficios"><div class="in">
+  <div><svg viewBox="0 0 24 24" fill="none" stroke-width="1.2" aria-hidden="true"><path d="M2 6h11v10H2zM13 10h4l3 3v3h-7z"/><circle cx="6" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg><b>Envío gratis</b><span id="bEnvio">desde $150.000</span></div>
+  <div><svg viewBox="0 0 24 24" fill="none" stroke-width="1.2" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="1"/><path d="M2.5 10h19M6 15h4"/></svg><b>Hasta 6 cuotas</b><span>con tarjeta</span></div>
+  <div><svg viewBox="0 0 24 24" fill="none" stroke-width="1.2" aria-hidden="true"><rect x="2.5" y="6" width="19" height="12" rx="1"/><circle cx="12" cy="12" r="2.6"/></svg><b>Mejor precio</b><span>en efectivo o transferencia</span></div>
+  <div><svg viewBox="0 0 24 24" fill="none" stroke-width="1.2" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/></svg><b>Compra por WhatsApp</b><span>te confirmamos talle y stock</span></div>
+</div></section>
+
+<section class="seccion gut"><div class="in">
+  <h2 class="titulo">lo más <em>elegido.</em></h2>
+  <div class="grilla" id="destacados"></div>
+</div></section>
+
+<section class="seccion gut" id="catalogo"><div class="in">
+  <h2 class="titulo" id="tituloCat">toda la <em>ropa.</em></h2>
+  <div class="herram">
+    <p class="cuenta" id="cuenta">Cargando…</p>
+    <input type="search" id="buscar" placeholder="Buscar: vestido, wide leg, cuero…" aria-label="Buscar">
+    <select id="orden" aria-label="Ordenar">
+      <option value="">Destacados</option>
+      <option value="menor">Precio: menor a mayor</option>
+      <option value="mayor">Precio: mayor a menor</option>
+    </select>
+  </div>
+  <div class="grilla" id="grilla"></div>
+  <button class="btn claro verMas" id="verMas" hidden>Ver más</button>
+</div></section>
+
+<section class="como gut" id="como"><div class="in">
+  <h2 class="titulo">cómo <em>comprar.</em></h2>
+  <ol class="pasos">
+    <li>Sumá las prendas al carrito y anotá el talle que buscás.</li>
+    <li>Elegí retiro en el local o envío, y cómo vas a pagar.</li>
+    <li>Mandanos el pedido por WhatsApp: te confirmamos talle y stock.</li>
+    <li>Pagás y lo retirás o te lo mandamos. Desde $150.000 el envío es gratis.</li>
+  </ol>
+</div></section>
+
+<footer class="gut"><div class="in">
+  <div><p class="logo">vis ta vie</p></div>
+  <div><h4>Categorías</h4><ul id="pieCats"></ul></div>
+  <div><h4>Pagos</h4><ul><li>Efectivo o transferencia</li><li>Tarjeta en 3 cuotas</li><li>Tarjeta en 6 cuotas</li></ul></div>
+  <div><h4>Contacto</h4><ul><li class="telTxt">WhatsApp del local</li><li>Catamarca, Argentina</li><li>Envío gratis desde $150.000</li></ul></div>
+  <div class="legal"><span>© 2026 Vis ta Vie</span><span id="actualizado"></span></div>
+</div></footer>
+
+<div id="menuCel" hidden><div class="hoja" id="menuCelLista"></div></div>
+<div id="panel" hidden><div class="hoja" role="dialog" aria-modal="true" aria-labelledby="tituloBolsa">
+  <header><h2 id="tituloBolsa">Carrito de compras</h2><button class="cerrar" id="cerrarBolsa" aria-label="Cerrar">×</button></header>
+  <div class="cuerpo" id="cuerpo"></div>
+  <div class="pie" id="pie"></div>
+</div></div>
+<div class="toast" id="toast" hidden></div>
+
+<script>window.CATALOGO={"actualizado":"2026-10-25T12:48:40+00:00","productos":[{"codigo":"AB0042","nombre":"CAMPERA BOMB ER GAMUZADA","categoria":"ABRIGOS","variantes":[{"codigo":"AB0042-VERDE","talle":"VERDE","stock":1,"contado":119600,"cuotas3":151800,"cuotas6":165600}]},{"codigo":"AB0006","nombre":"CAMPERA BOMBER BAILEN BORRAVINO","categoria":"ABRIGOS","variantes":[{"codigo":"AB0006-UNICO-BORDO","talle":"UNICO BORDO","stock":3,"contado":181532,"cuotas3":230406,"cuotas6":251352}]},{"codigo":"AB0037","nombre":"CAMPERA CAIA","categoria":"ABRIGOS","variantes":[{"codigo":"AB0037-BLANCA","talle":"BLANCA","stock":1,"contado":150280,"cuotas3":190740,"cuotas6":208080},{"codigo":"AB0037-NEGRA","talle":"NEGRA","stock":1,"contado":150280,"cuotas3":190740,"cuotas6":208080}]},{"codigo":"AB0054","nombre":"CAMPERA DE CUERO ZANNY","categoria":"ABRIGOS","variantes":[{"codigo":"AB0054","talle":"","stock":2,"contado":98800,"cuotas3":125400,"cuotas6":136800}]},{"codigo":"AB0053","nombre":"CAMPERA DE JEAN CON LENTEJUELAS","categoria":"ABRIGOS","variantes":[{"codigo":"AB0053","talle":"","stock":1,"contado":54080,"cuotas3":68640,"cuotas6":74880}]},{"codigo":"AB0051","nombre":"CAMPERA DE JEAN GRETA","categoria":"ABRIGOS","variantes":[{"codigo":"AB0051","talle":"","stock":1,"contado":70980,"cuotas3":90090,"cuotas6":98280}]},{"codigo":"AB0052","nombre":"CAMPERA NEGRA MILI","categoria":"ABRIGOS","variantes":[{"codigo":"AB0052-M-NEGRO","talle":"M NEGRO","stock":1,"contado":54600,"cuotas3":69300,"cuotas6":75600}]},{"codigo":"ACC0033","nombre":"CADENA CADENA CRUZ","categoria":"ACCESORIOS","variantes":[{"codigo":"ACC0033","talle":"","stock":1,"contado":11700,"cuotas3":14850,"cuotas6":16200}]},{"codigo":"ACC0028","nombre":"CADENA CON DIJE TAROT","categoria":"ACCESORIOS","variantes":[{"codigo":"ACC0028","talle":"","stock":6,"contado":11180,"cuotas3":14190,"cuotas6":15480}]},{"codigo":"ACC0030","nombre":"CADENA CON LLUVIA DE DIJES","categoria":"ACCESORIOS","variantes":[{"codigo":"ACC0030","talle":"","stock":3,"contado":11180,"cuotas3":14190,"cuotas6":15480}]},{"codigo":"ACC0037","nombre":"CADENA CON PELOTITA","categoria":"ACCESORIOS","variantes":[{"codigo":"ACC0037","talle":"","stock":1,"contado":5720,"cuotas3":7260,"cuotas6":7920}]},{"codigo":"ACC0047","nombre":"CADENA CON SUSANITO SILVER Y GOLD","categoria":"ACCESORIOS","variantes":[{"codigo":"ACC0047","talle":"","stock":4,"contado":10400,"cuotas3":13200,"cuotas6":14400}]},{"codigo":"ACC0038","nombre":"CADENA CORAZON ROJO","categoria":"ACCESORIOS","variantes":[{"codigo":"ACC0038","talle":"","stock":1,"contado":13520,"cuotas3":17160,"cuotas6":18720}]},{"codigo":"ACC0036","nombre":"CADENA DOBLE CORAZONES Y SUSANITO","categoria":"ACCESORIOS","variantes":[{"codigo":"ACC0036","talle":"","stock":1,"contado":13780,"cuotas3":17490,"cuotas6":19080}]},{"codigo":"ACC0032","nombre":"CADENA SHAKE APLANADA","categoria":"ACCESORIOS","variantes":[{"codigo":"ACC0032","talle":"","stock":2,"contado":6500,"cuotas3":8250,"cuotas6":9000}]},{"codigo":"ACC0034","nombre":"CADENA SHAKE CON PIEDRA","categoria":"ACCESORIOS","variantes":[{"codigo":"ACC0034","talle":"","stock":1,"contado":11700,"cuotas3":14850,"cuotas6":16200}]},{"codigo":"ACC0035","nombre":"CADENA SIMPLE FINITA","categoria":"ACCESORIOS","variantes":[{"codigo":"ACC0035","talle":"","stock":2,"contado":5200,"cuotas3":6600,"cuotas6":7200}]},{"codigo":"ACC0042","nombre":"CHOKER CRUZ","categoria":"ACCESORIOS","variantes":[{"codigo":"ACC0042","talle":"","stock":1,"contado":7280,"cuotas3":9240,"cuotas6":10080}]},{"codigo":"ACC0043","nombre":"CHOKER DIJE CORAZON CHOCO","categoria":"ACCESORIOS","variantes":[{"codigo":"ACC0043","talle":"","stock":1,"contado":6760,"cuotas3":8580,"cuotas6":9360}]},{"codigo":"ACC0046","nombre":"CHOKER DIJE MARRON ACRILICO","categoria":"ACCESORIOS","variantes":[{"codigo":"ACC0046","talle":"","stock":1,"contado":7800,"cuotas3":9900,"cuotas6":10800}]},{"codigo":"ACC0044","nombre":"CHOKER DIJE SOL CHOCO","categoria":"ACCESORIOS","variantes":[{"codigo":"ACC0044","talle":"","stock":1,"contado":6760,"cuotas3":8580,"cuotas6":9360}]},{"codigo":"ACC0041","nombre":"CHOKER DIJE TREBOL","categoria":"ACCESORIOS","variantes":[{"codigo":"ACC0041","talle":"","stock":1,"contado":7280,"cuotas3":9240,"cuotas6":10080}]},{"codigo":"ACC0048","nombre":"CINTO CHOCO CON OJALES","categoria":"ACCESORIOS","variantes":[{"codigo":"ACC0048","talle":"","stock":2,"contado":14820,"cuotas3":18810,"cuotas6":20520}]},{"codigo":"ACC0049","nombre":"CINTO CIRCULITOS CHOCO","categoria":"ACCESORIOS","variantes":[{"codigo":"ACC0049","talle":"","stock":1,"contado":11180,"cuotas3":14190,"cuotas6":15480}]},{"codigo":"ACC0053","nombre":"CINTO CON FLECOS","categoria":"ACCESORIOS","variantes":[{"codigo":"ACC0053","talle":"","stock":2,"contado":25480,"cuotas3":32340,"cuotas6":35280}]},{"codigo":"ACC0052","nombre":"CINTO GAMUZADO CON CHAPON","categoria":"ACCESORIOS","variantes":[{"codigo":"ACC0052","talle":"","stock":1,"contado":17680,"cuotas3":22440,"cuotas6":24480}]},{"codigo":"ACC0051","nombre":"CINTO OVALO CON DORADO","categoria":"ACCESORIOS","variantes":[{"codigo":"ACC0051","talle":"","stock":1,"contado":11180,"cuotas3":14190,"cuotas6":15480}]},{"codigo":"ACC0039","nombre":"COLLAR CIRUELA","categoria":"ACCESORIOS","variantes":[{"codigo":"ACC0039","talle":"","stock":1,"contado":11700,"cuotas3":14850,"cuotas6":16200}]},{"codigo":"ACC0040","nombre":"RELICARIO VIRGEN","categoria":"ACCESORIOS","variantes":[{"codigo":"ACC0040","talle":"","stock":1,"contado":13780,"cuotas3":17490,"cuotas6":19080}]},{"codigo":"BL0014","nombre":"BLUSA IMPORTADA FIONA","categoria":"BLUSAS Y CAMISAS","variantes":[{"codigo":"BL0014","talle":"","stock":2,"contado":54080,"cuotas3":68640,"cuotas6":74880}]},{"codigo":"BL0016","nombre":"BLUSA MILITAR","categoria":"BLUSAS Y CAMISAS","variantes":[{"codigo":"BL0016","talle":"","stock":1,"contado":67080,"cuotas3":85140,"cuotas6":92880}]},{"codigo":"BL0022","nombre":"CAMISA CAROLA","categoria":"BLUSAS Y CAMISAS","variantes":[{"codigo":"BL0022","talle":"","stock":1,"contado":49920,"cuotas3":63360,"cuotas6":69120}]},{"codigo":"BL0020","nombre":"CAMISA KIOTO LARGA CON BOLSILLO","categoria":"BLUSAS Y CAMISAS","variantes":[{"codigo":"BL0020","talle":"","stock":1,"contado":39780,"cuotas3":50490,"cuotas6":55080}]},{"codigo":"BL0021","nombre":"CAMISA KIOTO LISA","categoria":"BLUSAS Y CAMISAS","variantes":[{"codigo":"BL0021","talle":"","stock":4,"contado":42380,"cuotas3":53790,"cuotas6":58680}]},{"codigo":"BL0019","nombre":"CAMISA LONDRES LARGA LISA","categoria":"BLUSAS Y CAMISAS","variantes":[{"codigo":"BL0019","talle":"","stock":4,"contado":36920,"cuotas3":46860,"cuotas6":51120}]},{"codigo":"BL0018","nombre":"CAMISA PRAGA POPLIN","categoria":"BLUSAS Y CAMISAS","variantes":[{"codigo":"BL0018","talle":"","stock":2,"contado":35880,"cuotas3":45540,"cuotas6":49680}]},{"codigo":"BL0017","nombre":"CHALECO GAMUZADO","categoria":"BLUSAS Y CAMISAS","variantes":[{"codigo":"BL0017","talle":"","stock":3,"contado":69680,"cuotas3":88440,"cuotas6":96480}]},{"codigo":"BL0015","nombre":"PONCHITO IMPORTADO","categoria":"BLUSAS Y CAMISAS","variantes":[{"codigo":"BL0015","talle":"","stock":4,"contado":74880,"cuotas3":95040,"cuotas6":103680}]},{"codigo":"BD0020","nombre":"BODY BOBBY","categoria":"BODY","variantes":[{"codigo":"BD0020","talle":"","stock":5,"contado":22880,"cuotas3":29040,"cuotas6":31680}]},{"codigo":"BD0019","nombre":"BODY CON PUNTILLA","categoria":"BODY","variantes":[{"codigo":"BD0019","talle":"","stock":3,"contado":22100,"cuotas3":28050,"cuotas6":30600}]},{"codigo":"BD0021","nombre":"BODY ESCOTE CUADRADO TG","categoria":"BODY","variantes":[{"codigo":"BD0021","talle":"","stock":5,"contado":24180,"cuotas3":30690,"cuotas6":33480}]},{"codigo":"BD0015","nombre":"BODY IMPORTADO STRASS","categoria":"BODY","variantes":[{"codigo":"BD0015","talle":"","stock":1,"contado":20280,"cuotas3":25740,"cuotas6":28080}]},{"codigo":"BD0022","nombre":"BODY MARTA ESP DESCUBIERTA","categoria":"BODY","variantes":[{"codigo":"BD0022","talle":"","stock":3,"contado":22880,"cuotas3":29040,"cuotas6":31680}]},{"codigo":"BD0018","nombre":"BODY MC","categoria":"BODY","variantes":[{"codigo":"BD0018","talle":"","stock":2,"contado":18980,"cuotas3":24090,"cuotas6":26280}]},{"codigo":"BD0016","nombre":"BODY MICROFIBRA CON ARGOLLAS","categoria":"BODY","variantes":[{"codigo":"BD0016","talle":"","stock":3,"contado":19500,"cuotas3":24750,"cuotas6":27000}]},{"codigo":"BD0017","nombre":"BODY UNA MANGA CON PIEDRA","categoria":"BODY","variantes":[{"codigo":"BD0017","talle":"","stock":4,"contado":21580,"cuotas3":27390,"cuotas6":29880}]},{"codigo":"CU0002","nombre":"CAMPERA BOMBER TINA","categoria":"CAMPERAS DE CUERO","variantes":[{"codigo":"CU0002-L-CHOCO","talle":"L CHOCO","stock":1,"contado":105300,"cuotas3":133650,"cuotas6":145800},{"codigo":"CU0002-S-CHOCO","talle":"S CHOCO","stock":1,"contado":105300,"cuotas3":133650,"cuotas6":145800},{"codigo":"CU0002-XL-CHOCO","talle":"XL CHOCO","stock":1,"contado":105300,"cuotas3":133650,"cuotas6":145800}]},{"codigo":"CU0005","nombre":"CAMPERA CUERO HILEY","categoria":"CAMPERAS DE CUERO","variantes":[{"codigo":"CU0005-L-XL-NEGRA","talle":"L/XL NEGRA","stock":1,"contado":135980,"cuotas3":172590,"cuotas6":188280}]},{"codigo":"DM0047","nombre":"OXFORD PILAR","categoria":"DENIM","variantes":[{"codigo":"DM0047","talle":"","stock":4,"contado":68900,"cuotas3":87450,"cuotas6":95400}]},{"codigo":"DM0046","nombre":"OXFORD RIGIDO","categoria":"DENIM","variantes":[{"codigo":"DM0046","talle":"","stock":5,"contado":68900,"cuotas3":87450,"cuotas6":95400}]},{"codigo":"DM0049","nombre":"SHORT DE JEAN 0385","categoria":"DENIM","variantes":[{"codigo":"DM0049-36-NEGRO","talle":"36 NEGRO","stock":1,"contado":46280,"cuotas3":58740,"cuotas6":64080},{"codigo":"DM0049-38-NEGRO","talle":"38 NEGRO","stock":1,"contado":46280,"cuotas3":58740,"cuotas6":64080}]},{"codigo":"DM0050","nombre":"SHORT TIRO BAJO 0411","categoria":"DENIM","variantes":[{"codigo":"DM0050","talle":"","stock":4,"contado":51480,"cuotas3":65340,"cuotas6":71280}]},{"codigo":"DM0048","nombre":"SKORT DE JEAN 0408","categoria":"DENIM","variantes":[{"codigo":"DM0048-38-CELESTE","talle":"38 CELESTE","stock":1,"contado":59800,"cuotas3":75900,"cuotas6":82800},{"codigo":"DM0048-40-CELESTE","talle":"40 CELESTE","stock":1,"contado":59800,"cuotas3":75900,"cuotas6":82800},{"codigo":"DM0048-46-CELESTE","talle":"46 CELESTE","stock":1,"contado":59800,"cuotas3":75900,"cuotas6":82800}]},{"codigo":"DM0002","nombre":"WIDE LEG JENA MID LEOPARDO","categoria":"DENIM","variantes":[{"codigo":"DM0002-36","talle":"36","stock":1,"contado":101400,"cuotas3":128700,"cuotas6":140400},{"codigo":"DM0002-38","talle":"38","stock":2,"contado":101400,"cuotas3":128700,"cuotas6":140400},{"codigo":"DM0002-40","talle":"40","stock":1,"contado":101400,"cuotas3":128700,"cuotas6":140400},{"codigo":"DM0002-42","talle":"42","stock":1,"contado":101400,"cuotas3":128700,"cuotas6":140400},{"codigo":"DM0002-44","talle":"44","stock":1,"contado":101400,"cuotas3":128700,"cuotas6":140400}]},{"codigo":"DM0045","nombre":"WIDE LEG ROTURAS GIGI","categoria":"DENIM","variantes":[{"codigo":"DM0045","talle":"","stock":5,"contado":70200,"cuotas3":89100,"cuotas6":97200}]},{"codigo":"DM0056","nombre":"WIDELEG AZUL CON BIGOTE 38/40/42/44","categoria":"DENIM","variantes":[{"codigo":"DM0056","talle":"","stock":2,"contado":70200,"cuotas3":89100,"cuotas6":97200}]},{"codigo":"DM0055","nombre":"WIDELEG BLUE 36/40/42/44/46","categoria":"DENIM","variantes":[{"codigo":"DM0055","talle":"","stock":4,"contado":70200,"cuotas3":89100,"cuotas6":97200}]},{"codigo":"DM0058","nombre":"WIDELEG CELESTE RIGIDO 38","categoria":"DENIM","variantes":[{"codigo":"DM0058","talle":"","stock":1,"contado":72800,"cuotas3":92400,"cuotas6":100800}]},{"codigo":"DM0057","nombre":"WIDELEG RIGIDO GRIS 36 AL 46","categoria":"DENIM","variantes":[{"codigo":"DM0057-36","talle":"36","stock":1,"contado":67600,"cuotas3":85800,"cuotas6":93600},{"codigo":"DM0057-38","talle":"38","stock":1,"contado":67600,"cuotas3":85800,"cuotas6":93600},{"codigo":"DM0057-40","talle":"40","stock":1,"contado":67600,"cuotas3":85800,"cuotas6":93600},{"codigo":"DM0057-44","talle":"44","stock":1,"contado":67600,"cuotas3":85800,"cuotas6":93600},{"codigo":"DM0057-46","talle":"46","stock":1,"contado":67600,"cuotas3":85800,"cuotas6":93600}]},{"codigo":"10226","nombre":"WIDELEG PÁLAZZO NEGRO 36 A 44","categoria":"JEANS","variantes":[{"codigo":"10226","talle":"","stock":1,"contado":63180,"cuotas3":80190,"cuotas6":87480}]},{"codigo":"MI0045","nombre":"MINI CUERINA T3 Y T4","categoria":"MINI Y MIDIS","variantes":[{"codigo":"MI0045","talle":"","stock":3,"contado":19500,"cuotas3":24750,"cuotas6":27000}]},{"codigo":"MI0024","nombre":"MINI MAUREEN CON VOLADOS","categoria":"MINI Y MIDIS","variantes":[{"codigo":"MI0024","talle":"","stock":1,"contado":41600,"cuotas3":52800,"cuotas6":57600}]},{"codigo":"MI0043","nombre":"MINI MENPHIS","categoria":"MINI Y MIDIS","variantes":[{"codigo":"MI0043","talle":"","stock":2,"contado":48880,"cuotas3":62040,"cuotas6":67680}]},{"codigo":"MI0044","nombre":"MINI MICROFIBRA TRIPLE VOLADO","categoria":"MINI Y MIDIS","variantes":[{"codigo":"MI0044","talle":"","stock":6,"contado":30420,"cuotas3":38610,"cuotas6":42120}]},{"codigo":"MI0042","nombre":"MINI SASTRERA MIRANDA","categoria":"MINI Y MIDIS","variantes":[{"codigo":"MI0042","talle":"","stock":3,"contado":33280,"cuotas3":42240,"cuotas6":46080}]},{"codigo":"RE0013","nombre":"CHOMBA TEJIDA CONI","categoria":"REMERAS","variantes":[{"codigo":"RE0013","talle":"","stock":5,"contado":51480,"cuotas3":65340,"cuotas6":71280}]},{"codigo":"RE0010","nombre":"MUSCULOSA HELENA","categoria":"REMERAS","variantes":[{"codigo":"RE0010","talle":"","stock":1,"contado":16900,"cuotas3":21450,"cuotas6":23400}]},{"codigo":"RE0014","nombre":"MUSCULOSA SALVA","categoria":"REMERAS","variantes":[{"codigo":"RE0014","talle":"","stock":2,"contado":17680,"cuotas3":22440,"cuotas6":24480}]},{"codigo":"RE0011","nombre":"REMERA 2000S","categoria":"REMERAS","variantes":[{"codigo":"RE0011","talle":"","stock":3,"contado":16120,"cuotas3":20460,"cuotas6":22320}]},{"codigo":"RE0009","nombre":"REMERA CLASICA","categoria":"REMERAS","variantes":[{"codigo":"RE0009","talle":"","stock":6,"contado":26520,"cuotas3":33660,"cuotas6":36720}]},{"codigo":"RE0012","nombre":"REMERA CLOQUE VOLADOS","categoria":"REMERAS","variantes":[{"codigo":"RE0012","talle":"","stock":5,"contado":24960,"cuotas3":31680,"cuotas6":34560}]},{"codigo":"RE0008","nombre":"REMERA MARGOT ENCAJE","categoria":"REMERAS","variantes":[{"codigo":"RE0008","talle":"","stock":3,"contado":37700,"cuotas3":47850,"cuotas6":52200}]},{"codigo":"SE0003","nombre":"CONJUNTO FELIX","categoria":"SET VTV","variantes":[{"codigo":"SE0003","talle":"","stock":2,"contado":35620,"cuotas3":45210,"cuotas6":49320}]},{"codigo":"SE0004","nombre":"CONJUNTO PEAK","categoria":"SET VTV","variantes":[{"codigo":"SE0004","talle":"","stock":2,"contado":35620,"cuotas3":45210,"cuotas6":49320}]},{"codigo":"SH0012","nombre":"SHORT CUERINA 4 BOTONES","categoria":"SHORTS","variantes":[{"codigo":"SH0012","talle":"","stock":3,"contado":28080,"cuotas3":35640,"cuotas6":38880}]},{"codigo":"SH0010","nombre":"SHORT CURE NEGRO Y CHOCO","categoria":"SHORTS","variantes":[{"codigo":"SH0010","talle":"","stock":4,"contado":50700,"cuotas3":64350,"cuotas6":70200}]},{"codigo":"SH0008","nombre":"SHORT ECOCUERO NINA","categoria":"SHORTS","variantes":[{"codigo":"SH0008","talle":"","stock":2,"contado":26520,"cuotas3":33660,"cuotas6":36720}]},{"codigo":"SH0007","nombre":"SHORT NAPOLEON","categoria":"SHORTS","variantes":[{"codigo":"SH0007","talle":"","stock":4,"contado":56680,"cuotas3":71940,"cuotas6":78480}]},{"codigo":"SK0014","nombre":"SKORT CON FRUNCE","categoria":"SKORT","variantes":[{"codigo":"SK0014","talle":"","stock":1,"contado":26780,"cuotas3":33990,"cuotas6":37080}]},{"codigo":"SK0013","nombre":"SKORT CON HEBILLAS JULIANA","categoria":"SKORT","variantes":[{"codigo":"SK0013","talle":"","stock":3,"contado":39780,"cuotas3":50490,"cuotas6":55080}]},{"codigo":"SK0015","nombre":"SKORT PAREO","categoria":"SKORT","variantes":[{"codigo":"SK0015","talle":"","stock":3,"contado":27820,"cuotas3":35310,"cuotas6":38520}]},{"codigo":"SK0012","nombre":"SKORT VOLADITOS","categoria":"SKORT","variantes":[{"codigo":"SK0012","talle":"","stock":2,"contado":31980,"cuotas3":40590,"cuotas6":44280}]},{"codigo":"TP0046","nombre":"CORSET BENGALINA KILL","categoria":"TOPS","variantes":[{"codigo":"TP0046","talle":"","stock":3,"contado":37700,"cuotas3":47850,"cuotas6":52200}]},{"codigo":"TP0060","nombre":"TOP BIANCA CON ENCAJE","categoria":"TOPS","variantes":[{"codigo":"TP0060","talle":"","stock":4,"contado":20020,"cuotas3":25410,"cuotas6":27720}]},{"codigo":"TP0061","nombre":"TOP BRUNELLA MUSCU PARA ATAR","categoria":"TOPS","variantes":[{"codigo":"TP0061","talle":"","stock":2,"contado":17420,"cuotas3":22110,"cuotas6":24120}]},{"codigo":"TP0047","nombre":"TOP DREW","categoria":"TOPS","variantes":[{"codigo":"TP0047","talle":"","stock":4,"contado":16900,"cuotas3":21450,"cuotas6":23400}]},{"codigo":"TP0052","nombre":"TOP ESCOTE EN V PUNTILLA GAIA","categoria":"TOPS","variantes":[{"codigo":"TP0052","talle":"","stock":1,"contado":23920,"cuotas3":30360,"cuotas6":33120}]},{"codigo":"TP0051","nombre":"TOP ESPALDA DESCUBIERTA Y ACCESORIO","categoria":"TOPS","variantes":[{"codigo":"TP0051","talle":"","stock":1,"contado":23920,"cuotas3":30360,"cuotas6":33120}]},{"codigo":"TP0050","nombre":"TOP FALSO CORPIÑO MIA","categoria":"TOPS","variantes":[{"codigo":"TP0050","talle":"","stock":4,"contado":16380,"cuotas3":20790,"cuotas6":22680}]},{"codigo":"TP0055","nombre":"TOP FRUNCY","categoria":"TOPS","variantes":[{"codigo":"TP0055","talle":"","stock":2,"contado":30680,"cuotas3":38940,"cuotas6":42480}]},{"codigo":"TP0056","nombre":"TOP HALTER PETRA CON ACCESORIO","categoria":"TOPS","variantes":[{"codigo":"TP0056","talle":"","stock":3,"contado":34580,"cuotas3":43890,"cuotas6":47880}]},{"codigo":"TP0039","nombre":"TOP IMPORTADO PECHERA","categoria":"TOPS","variantes":[{"codigo":"TP0039","talle":"","stock":3,"contado":54080,"cuotas3":68640,"cuotas6":74880}]},{"codigo":"TP0054","nombre":"TOP LULI BLANCO Y NEGRO","categoria":"TOPS","variantes":[{"codigo":"TP0054","talle":"","stock":4,"contado":17680,"cuotas3":22440,"cuotas6":24480}]},{"codigo":"TP0042","nombre":"TOP MARILYN FRUNCE","categoria":"TOPS","variantes":[{"codigo":"TP0042","talle":"","stock":5,"contado":20280,"cuotas3":25740,"cuotas6":28080}]},{"codigo":"TP0058","nombre":"TOP MERCEDES NEGRO Y CHOCO","categoria":"TOPS","variantes":[{"codigo":"TP0058","talle":"","stock":6,"contado":34840,"cuotas3":44220,"cuotas6":48240}]},{"codigo":"TP0049","nombre":"TOP MICROFIBRA CON PUNTILLAS","categoria":"TOPS","variantes":[{"codigo":"TP0049","talle":"","stock":4,"contado":20280,"cuotas3":25740,"cuotas6":28080}]},{"codigo":"TP0040","nombre":"TOP MICROFIBRA CON TACHAS","categoria":"TOPS","variantes":[{"codigo":"TP0040","talle":"","stock":4,"contado":17680,"cuotas3":22440,"cuotas6":24480}]},{"codigo":"TP0053","nombre":"TOP MICROFIBRA ESCOTE HALTER","categoria":"TOPS","variantes":[{"codigo":"TP0053","talle":"","stock":2,"contado":21320,"cuotas3":27060,"cuotas6":29520}]},{"codigo":"TP0045","nombre":"TOP PARA ATAR NAMBIA","categoria":"TOPS","variantes":[{"codigo":"TP0045","talle":"","stock":2,"contado":13780,"cuotas3":17490,"cuotas6":19080}]},{"codigo":"TP0059","nombre":"TOP ROSEMARY NEGRO","categoria":"TOPS","variantes":[{"codigo":"TP0059","talle":"","stock":3,"contado":31980,"cuotas3":40590,"cuotas6":44280}]},{"codigo":"TP0057","nombre":"TOP SASTRERO KANISS","categoria":"TOPS","variantes":[{"codigo":"TP0057","talle":"","stock":2,"contado":38480,"cuotas3":48840,"cuotas6":53280}]},{"codigo":"TP0043","nombre":"TOP STRAPLESS","categoria":"TOPS","variantes":[{"codigo":"TP0043","talle":"","stock":1,"contado":30680,"cuotas3":38940,"cuotas6":42480}]},{"codigo":"TP0048","nombre":"TOP STRAPLESS BANDO","categoria":"TOPS","variantes":[{"codigo":"TP0048","talle":"","stock":4,"contado":13520,"cuotas3":17160,"cuotas6":18720}]},{"codigo":"TP0044","nombre":"TOP UNA MANGA BONGANA","categoria":"TOPS","variantes":[{"codigo":"TP0044","talle":"","stock":5,"contado":25480,"cuotas3":32340,"cuotas6":35280}]},{"codigo":"VT0070","nombre":"CATSUIT PIA NEGRO Y CHOCO","categoria":"VESTIDOS","variantes":[{"codigo":"VT0070","talle":"","stock":1,"contado":30680,"cuotas3":38940,"cuotas6":42480}]},{"codigo":"VT0068","nombre":"LONG DRESS PUNTILLA","categoria":"VESTIDOS","variantes":[{"codigo":"VT0068","talle":"","stock":1,"contado":36920,"cuotas3":46860,"cuotas6":51120}]},{"codigo":"VT0065","nombre":"MONO MICROTUL SUBLIMADO","categoria":"VESTIDOS","variantes":[{"codigo":"VT0065","talle":"","stock":1,"contado":30680,"cuotas3":38940,"cuotas6":42480}]},{"codigo":"VT0060","nombre":"VESTIDO BENGALINA CLOE","categoria":"VESTIDOS","variantes":[{"codigo":"VT0060","talle":"","stock":1,"contado":29900,"cuotas3":37950,"cuotas6":41400}]},{"codigo":"VT0055","nombre":"VESTIDO BUCHE ENCAJE","categoria":"VESTIDOS","variantes":[{"codigo":"VT0055","talle":"","stock":2,"contado":29380,"cuotas3":37290,"cuotas6":40680}]},{"codigo":"VT0056","nombre":"VESTIDO CAIDA GLOBO","categoria":"VESTIDOS","variantes":[{"codigo":"VT0056","talle":"","stock":4,"contado":24960,"cuotas3":31680,"cuotas6":34560}]},{"codigo":"VT0050","nombre":"VESTIDO CORTE EN V Y VOLADITO","categoria":"VESTIDOS","variantes":[{"codigo":"VT0050","talle":"","stock":3,"contado":20280,"cuotas3":25740,"cuotas6":28080}]},{"codigo":"VT0071","nombre":"VESTIDO CUELLO ALTO FLAX","categoria":"VESTIDOS","variantes":[{"codigo":"VT0071","talle":"","stock":4,"contado":22880,"cuotas3":29040,"cuotas6":31680}]},{"codigo":"VT0046","nombre":"VESTIDO DANNA","categoria":"VESTIDOS","variantes":[{"codigo":"VT0046","talle":"","stock":3,"contado":38480,"cuotas3":48840,"cuotas6":53280}]},{"codigo":"VT0051","nombre":"VESTIDO ENCAJE","categoria":"VESTIDOS","variantes":[{"codigo":"VT0051","talle":"","stock":2,"contado":41080,"cuotas3":52140,"cuotas6":56880}]},{"codigo":"VT0057","nombre":"VESTIDO ENCAJE LADRILLO","categoria":"VESTIDOS","variantes":[{"codigo":"VT0057","talle":"","stock":1,"contado":29900,"cuotas3":37950,"cuotas6":41400}]},{"codigo":"VT0059","nombre":"VESTIDO FIAMMA","categoria":"VESTIDOS","variantes":[{"codigo":"VT0059","talle":"","stock":1,"contado":67080,"cuotas3":85140,"cuotas6":92880}]},{"codigo":"VT0072","nombre":"VESTIDO LARGO MARILIN CON MICROTUL","categoria":"VESTIDOS","variantes":[{"codigo":"VT0072","talle":"","stock":1,"contado":52520,"cuotas3":66660,"cuotas6":72720}]},{"codigo":"VT0064","nombre":"VESTIDO LENCERO RUFEL","categoria":"VESTIDOS","variantes":[{"codigo":"VT0064","talle":"","stock":3,"contado":41600,"cuotas3":52800,"cuotas6":57600}]},{"codigo":"VT0049","nombre":"VESTIDO MICROFIBRA CORTE MARILYN","categoria":"VESTIDOS","variantes":[{"codigo":"VT0049","talle":"","stock":5,"contado":20280,"cuotas3":25740,"cuotas6":28080}]},{"codigo":"VT0052","nombre":"VESTIDO MICROTUL KIA","categoria":"VESTIDOS","variantes":[{"codigo":"VT0052","talle":"","stock":3,"contado":35880,"cuotas3":45540,"cuotas6":49680}]},{"codigo":"VT0061","nombre":"VESTIDO MICROTUL MALEA","categoria":"VESTIDOS","variantes":[{"codigo":"VT0061","talle":"","stock":2,"contado":43680,"cuotas3":55440,"cuotas6":60480}]},{"codigo":"VT0066","nombre":"VESTIDO MIMI","categoria":"VESTIDOS","variantes":[{"codigo":"VT0066","talle":"","stock":6,"contado":27560,"cuotas3":34980,"cuotas6":38160}]},{"codigo":"VT0058","nombre":"VESTIDO PICO PARA ATAR","categoria":"VESTIDOS","variantes":[{"codigo":"VT0058","talle":"","stock":2,"contado":24700,"cuotas3":31350,"cuotas6":34200}]},{"codigo":"VT0045","nombre":"VESTIDO ROMA","categoria":"VESTIDOS","variantes":[{"codigo":"VT0045","talle":"","stock":2,"contado":25480,"cuotas3":32340,"cuotas6":35280}]},{"codigo":"VT0054","nombre":"VESTIDO SATEN LENCERO","categoria":"VESTIDOS","variantes":[{"codigo":"VT0054","talle":"","stock":2,"contado":46280,"cuotas3":58740,"cuotas6":64080}]},{"codigo":"VT0063","nombre":"VESTIDO SATEN MORI","categoria":"VESTIDOS","variantes":[{"codigo":"VT0063","talle":"","stock":2,"contado":55900,"cuotas3":70950,"cuotas6":77400}]},{"codigo":"VT0062","nombre":"VESTIDO SAVAGE","categoria":"VESTIDOS","variantes":[{"codigo":"VT0062","talle":"","stock":1,"contado":71500,"cuotas3":90750,"cuotas6":99000}]},{"codigo":"VT0067","nombre":"VESTIDO STRAPLESS VOLADO","categoria":"VESTIDOS","variantes":[{"codigo":"VT0067","talle":"","stock":2,"contado":20280,"cuotas3":25740,"cuotas6":28080}]},{"codigo":"VT0048","nombre":"VESTIDO TUL CORTE CHINO BARBI","categoria":"VESTIDOS","variantes":[{"codigo":"VT0048","talle":"","stock":1,"contado":28080,"cuotas3":35640,"cuotas6":38880}]},{"codigo":"VT0069","nombre":"VESTIDO ZULA","categoria":"VESTIDOS","variantes":[{"codigo":"VT0069","talle":"","stock":1,"contado":22880,"cuotas3":29040,"cuotas6":31680}]}]};</script>
+<script>
+// Datos de la tienda. WhatsApp con código de país, sin + ni espacios (ej. 5493834123456). Vacío: el pedido se copia y se manda a mano.
+const TIENDA = { whatsapp: "5493834220259", envioGratis: 150000 };
+
+const $ = (id) => document.getElementById(id);
+const ars = (n) => "$" + Math.round(n || 0).toLocaleString("es-AR");
+const norm = (s) => (s || "").toString().normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+const esc = (s) => (s ?? "").toString().replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const lindo = (s) => { const t = (s || "").toLowerCase(); return t.charAt(0).toUpperCase() + t.slice(1); };
+const CATS = { "MINI Y MIDIS": "Minis y midis", "BLUSAS Y CAMISAS": "Blusas y camisas", "CAMPERAS DE CUERO": "Cuero", "SET VTV": "Sets", BODY: "Bodys", SKORT: "Skorts", PANTALON: "Pantalones" };
+const nomCat = (c) => CATS[c] || lindo(c);
+const TINTAS = ["--t1", "--t2", "--t3", "--t4", "--t5", "--t6"];
+const POR_PAGINA = 40;
+
+const CAT = window.CATALOGO;
+const prendas = CAT.productos;
+const porVar = new Map(); prendas.forEach((p) => p.variantes.forEach((v) => porVar.set(v.codigo, { p, v })));
+const catsOrden = [...new Set(prendas.map((p) => p.categoria))].sort((a, b) => prendas.filter((p) => p.categoria === b).length - prendas.filter((p) => p.categoria === a).length);
+const tinta = (c) => `var(${TINTAS[catsOrden.indexOf(c) % TINTAS.length]})`;
+
+let estado = { cat: "", q: "", orden: "", mostrar: POR_PAGINA };
+let elegida = new Map();   // codigo de prenda -> codigo de variante elegida
+let bolsa = [];            // {codigo, cant, talle}
+let paso = "bolsa";
+
+function guardar() { try { localStorage.setItem("vtv-bolsa", JSON.stringify(bolsa)); } catch (e) {} }
+function recuperar() { try { const d = JSON.parse(localStorage.getItem("vtv-bolsa") || "[]"); bolsa = (Array.isArray(d) ? d : []).filter((i) => porVar.has(i.codigo)); } catch (e) {} }
+function toast(m) { const t = $("toast"); t.textContent = m; t.hidden = false; clearTimeout(toast.t); toast.t = setTimeout(() => (t.hidden = true), 2400); }
+
+const desde = (p) => Math.min(...p.variantes.map((v) => v.contado));
+const stockTotal = (p) => p.variantes.reduce((s, v) => s + v.stock, 0);
+const varDe = (p) => p.variantes.find((v) => v.codigo === elegida.get(p.codigo)) || p.variantes.find((v) => v.stock > 0) || p.variantes[0];
+const enBolsa = (cod) => bolsa.filter((i) => i.codigo === cod).reduce((s, i) => s + i.cant, 0);
+
+function prod(p) {
+  const v = varDe(p), lleva = enBolsa(v.codigo), agotado = lleva >= v.stock;
+  return `<article class="prod">
+    <div class="foto" style="background:${tinta(p.categoria)}">${p.foto ? `<img src="${esc(p.foto)}" alt="${esc(lindo(p.nombre))}" loading="lazy">` : `<span class="ph">${esc(p.nombre.toLowerCase())}</span>`}
+      ${stockTotal(p) === 1 ? `<span class="etq">Última unidad</span>` : ""}
+      <button class="agregar" data-add="${esc(p.codigo)}" ${agotado ? "disabled" : ""}>${agotado ? "En tu carrito" : lleva ? `Agregar otra (${lleva})` : "Agregar al carrito"}</button></div>
+    <h3>${esc(lindo(p.nombre))}</h3>
+    ${p.variantes.length > 1 ? `<div class="vars" role="group" aria-label="Opción">${p.variantes.map((x) => `<button data-var="${esc(p.codigo)}|${esc(x.codigo)}" aria-pressed="${x.codigo === v.codigo}">${esc(x.talle || x.codigo)}</button>`).join("")}</div>` : v.talle ? `<div class="vars"><button disabled aria-pressed="true">${esc(v.talle)}</button></div>` : ""}
+    <div class="precio"><span><b>${ars(v.cuotas6)}</b></span><span>3 cuotas de ${ars(v.cuotas3 / 3)}</span><span>6 cuotas de ${ars(v.cuotas6 / 6)}</span><span class="transf"><b>${ars(v.contado)}</b> con transferencia o efectivo</span></div>
+  </article>`;
+}
+
+function filtradas() {
+  const q = norm(estado.q).split(/\s+/).filter(Boolean);
+  const l = prendas.filter((p) => (!estado.cat || p.categoria === estado.cat) && q.every((w) => norm(p.nombre + " " + nomCat(p.categoria) + " " + p.variantes.map((v) => v.talle).join(" ")).includes(w)));
+  if (estado.orden === "menor") l.sort((a, b) => desde(a) - desde(b));
+  else if (estado.orden === "mayor") l.sort((a, b) => desde(b) - desde(a));
+  return l;
+}
+
+// Lo más elegido: la prenda más cara de cada categoría que tiene más de una unidad.
+function destacadas() {
+  const porCat = {};
+  [...prendas].filter((p) => stockTotal(p) > 1).sort((a, b) => desde(b) - desde(a)).forEach((p) => { porCat[p.categoria] ||= p; });
+  return Object.values(porCat).slice(0, 8);
+}
+
+function render() {
+  document.querySelectorAll("nav.menu button").forEach((b) => b.setAttribute("aria-current", b.dataset.cat === estado.cat));
+  $("tituloCat").innerHTML = estado.cat ? `${esc(nomCat(estado.cat).toLowerCase())}<em>.</em>` : "toda la <em>ropa.</em>";
+  const l = filtradas();
+  $("cuenta").textContent = l.length === 1 ? "1 producto" : l.length + " productos";
+  $("grilla").innerHTML = l.length ? l.slice(0, estado.mostrar).map(prod).join("") : `<p class="vacio">No encontramos prendas con esa búsqueda. Probá con otra palabra.</p>`;
+  $("destacados").innerHTML = destacadas().map(prod).join("");
+  $("verMas").hidden = l.length <= estado.mostrar;
+  $("nBolsa").textContent = bolsa.reduce((s, i) => s + i.cant, 0);
+}
+
+function sumar(codPrenda) {
+  const p = prendas.find((x) => x.codigo === codPrenda); if (!p) return;
+  const v = varDe(p), it = bolsa.find((i) => i.codigo === v.codigo);
+  if (it) { if (it.cant < v.stock) it.cant++; } else bolsa.push({ codigo: v.codigo, cant: 1, talle: "" });
+  guardar(); render(); toast("Agregado al carrito");
+}
+
+const filas = () => bolsa.map((i) => ({ ...i, ...porVar.get(i.codigo) })).filter((i) => i.p);
+const suma = (k) => filas().reduce((s, i) => s + i.v[k] * i.cant, 0);
+
+function envioHtml(total) {
+  if (total >= TIENDA.envioGratis) return `<div class="envio gratis">Tenés envío gratis</div>`;
+  return `<div class="envio"><span>Te faltan <b>${ars(TIENDA.envioGratis - total)}</b> para el envío gratis</span><div class="bar"><i style="width:${Math.min(100, total / TIENDA.envioGratis * 100)}%"></i></div></div>`;
+}
+
+function dibujar() {
+  const f = filas();
+  if (!f.length) {
+    $("cuerpo").innerHTML = `<p class="vacio">El carrito está vacío.</p>`;
+    $("pie").innerHTML = `<button class="btn claro" id="seguir">Ver productos</button>`;
+    return;
+  }
+  if (paso === "bolsa") {
+    $("cuerpo").innerHTML = envioHtml(suma("contado")) + f.map((i) => `<div class="item">
+      <div class="mini" style="background:${tinta(i.p.categoria)}"></div>
+      <div class="n">${esc(lindo(i.p.nombre))}<small>${i.v.talle ? esc(i.v.talle) : esc(nomCat(i.p.categoria))}</small></div>
+      <div class="p">${ars(i.v.contado * i.cant)}</div>
+      ${i.v.talle ? "" : `<label>Talle<input data-talle="${esc(i.codigo)}" value="${esc(i.talle)}" placeholder="Ej: M, 44, 52"></label>`}
+      <div class="cant"><button data-menos="${esc(i.codigo)}" aria-label="Una menos">−</button><span>${i.cant}</span><button data-mas="${esc(i.codigo)}" aria-label="Una más" ${i.cant >= i.v.stock ? "disabled" : ""}>+</button></div>
+      <button class="quitar" data-quitar="${esc(i.codigo)}">Quitar</button>
+    </div>`).join("") + `<div class="totales">
+      <div class="grande"><span>Total con transferencia o efectivo</span><span>${ars(suma("contado"))}</span></div>
+      <div><span>En 3 cuotas</span><span>${ars(suma("cuotas3"))}</span></div>
+      <div><span>En 6 cuotas</span><span>${ars(suma("cuotas6"))}</span></div></div>`;
+    $("pie").innerHTML = `<button class="btn" id="continuar">Iniciar compra</button><button class="btn claro" id="seguir">Seguir comprando</button>`;
+  } else if (paso === "datos") {
+    const pagos = [["transferencia", "Transferencia", "contado"], ["efectivo", "Efectivo al retirar", "contado"], ["cuotas3", "Tarjeta en 3 cuotas", "cuotas3"], ["cuotas6", "Tarjeta en 6 cuotas", "cuotas6"]];
+    $("cuerpo").innerHTML = `<form class="datos" id="datos" novalidate>
+      <label>Nombre y apellido<input id="dNombre" autocomplete="name"></label>
+      <label>WhatsApp<input id="dTel" inputmode="tel" autocomplete="tel" placeholder="Ej: 383 4123456"></label>
+      <p class="grupo">Entrega</p>
+      <div class="opciones">
+        <label><input type="radio" name="entrega" value="retiro" checked> Retiro en el local</label>
+        <label><input type="radio" name="entrega" value="envio"> Envío a domicilio</label>
+      </div>
+      <label id="dDirWrap" hidden>Dirección y localidad<input id="dDir" autocomplete="street-address"></label>
+      <p class="grupo">Forma de pago</p>
+      <div class="opciones">${pagos.map(([v, t, k], n) => `<label><input type="radio" name="pago" value="${v}" data-k="${k}" ${n ? "" : "checked"}> ${t}<span>${ars(suma(k))}</span></label>`).join("")}</div>
+      <div id="dEnvio"></div>
+      <label>Nota (opcional)<textarea id="dNota" rows="2" placeholder="Si es para regalo, horario para retirar…"></textarea></label>
+      <p class="err" id="dErr" hidden></p>
+    </form>`;
+    $("pie").innerHTML = `<button class="btn" id="enviar">${TIENDA.whatsapp ? "Enviar pedido por WhatsApp" : "Armar el mensaje del pedido"}</button><button class="btn claro" id="volver">Volver al carrito</button>`;
+    envioDatos();
+  } else {
+    const link = TIENDA.whatsapp ? `https://wa.me/${TIENDA.whatsapp}?text=${encodeURIComponent(paso.texto)}` : "";
+    $("cuerpo").innerHTML = `<p>Listo, tu pedido está armado. ${link ? "Tocá el botón para mandarlo por WhatsApp y te confirmamos el stock, el talle y cómo pagar." : "Copiá este mensaje y mandalo a nuestro WhatsApp."}</p><div class="resumen" id="resumen">${esc(paso.texto)}</div>`;
+    $("pie").innerHTML = (link ? `<a class="btn" href="${link}" target="_blank" rel="noopener">Abrir WhatsApp</a>` : "") + `<button class="btn${link ? " claro" : ""}" id="copiar">Copiar mensaje</button><button class="btn claro" id="volver">Volver al carrito</button>`;
+  }
+}
+function pagoK() { const r = document.querySelector('input[name="pago"]:checked'); return r ? r.dataset.k : "contado"; }
+function envioDatos() {
+  const box = $("dEnvio"); if (!box) return;
+  const envio = document.querySelector('input[name="entrega"]:checked').value === "envio";
+  const t = suma(pagoK());
+  box.innerHTML = envio ? (t >= TIENDA.envioGratis ? `<div class="envio gratis">Envío gratis</div>` : `<div class="envio"><span>El envío se cotiza por WhatsApp según tu dirección. Te faltan <b>${ars(TIENDA.envioGratis - t)}</b> para que sea gratis.</span></div>`) : "";
+}
+
+function armarTexto() {
+  const nombre = $("dNombre").value.trim(), tel = $("dTel").value.trim(), err = $("dErr");
+  if (!nombre || tel.replace(/\D/g, "").length < 8) { err.textContent = "Completá tu nombre y un WhatsApp para poder confirmarte el pedido."; err.hidden = false; return null; }
+  const envio = document.querySelector('input[name="entrega"]:checked').value === "envio", dir = $("dDir").value.trim();
+  if (envio && !dir) { err.textContent = "Para el envío necesitamos la dirección y la localidad."; err.hidden = false; return null; }
+  const r = document.querySelector('input[name="pago"]:checked'), k = r.dataset.k, total = suma(k);
+  const lineas = filas().map((i) => `• ${i.cant} × ${lindo(i.p.nombre)}${i.v.talle ? " (" + i.v.talle + ")" : i.talle ? " · talle " + i.talle : ""} [${i.v.codigo}] ${ars(i.v[k] * i.cant)}`);
+  return [
+    "Hola! Quiero hacer este pedido en Vis ta Vie:", ...lineas,
+    `Total (${r.parentElement.textContent.replace(/\$[\d.]+/, "").trim().toLowerCase()}): ${ars(total)}`,
+    `Nombre: ${nombre}`, `WhatsApp: ${tel}`,
+    envio ? `Envío a: ${dir}${total >= TIENDA.envioGratis ? " (envío gratis)" : ""}` : "Retiro en el local",
+    $("dNota").value.trim() ? `Nota: ${$("dNota").value.trim()}` : null,
+  ].filter(Boolean).join("\n");
+}
+
+function iniciar() {
+  recuperar();
+  const avisos = ["Envío gratis desde " + ars(TIENDA.envioGratis), "3 y 6 cuotas con tarjeta", "Mejor precio en efectivo o transferencia", "Talles hasta el 60", "Retiro en el local de Catamarca"];
+  $("rueda").innerHTML = [...avisos, ...avisos].map((a) => `<span>${esc(a)} ⋆</span>`).join("");
+  const botones = (extra = "") => [`<button data-cat=""${extra}>Todo</button>`].concat(catsOrden.map((c) => `<button data-cat="${esc(c)}"${extra}>${esc(nomCat(c))}</button>`)).join("");
+  $("menu").innerHTML = botones(); $("menuCelLista").innerHTML = botones(' data-cerrar="1"');
+  $("pieCats").innerHTML = catsOrden.slice(0, 7).map((c) => `<li><button data-cat="${esc(c)}">${esc(nomCat(c))}</button></li>`).join("");
+  if (TIENDA.whatsapp) document.querySelectorAll(".telTxt").forEach((e) => (e.textContent = "WhatsApp " + TIENDA.whatsapp.replace(/^549(\d{3})(\d+)/, "$1 $2")));
+  if (CAT.actualizado) $("actualizado").textContent = "Stock actualizado el " + new Date(CAT.actualizado).toLocaleDateString("es-AR");
+  render();
+}
+
+document.addEventListener("click", (e) => {
+  const t = e.target.closest("button, a");
+  if (!t) { if (e.target.id === "panel") $("panel").hidden = true; if (e.target.id === "menuCel") $("menuCel").hidden = true; return; }
+  if (t.dataset.add) sumar(t.dataset.add);
+  else if (t.dataset.var) { const [p, v] = t.dataset.var.split("|"); elegida.set(p, v); render(); }
+  else if (t.dataset.cat !== undefined) { estado.cat = t.dataset.cat; estado.mostrar = POR_PAGINA; render(); $("menuCel").hidden = true; $("catalogo").scrollIntoView(); }
+  else if (t.dataset.mas || t.dataset.menos || t.dataset.quitar) {
+    const cod = t.dataset.mas || t.dataset.menos || t.dataset.quitar, it = bolsa.find((i) => i.codigo === cod); if (!it) return;
+    if (t.dataset.mas) it.cant = Math.min(it.cant + 1, porVar.get(cod).v.stock); else if (t.dataset.menos) it.cant--;
+    if (t.dataset.quitar || it.cant <= 0) bolsa = bolsa.filter((i) => i !== it);
+    guardar(); render(); dibujar();
+  }
+  else if (t.id === "abrirMenu") $("menuCel").hidden = false;
+  else if (t.id === "irBuscar") { $("catalogo").scrollIntoView(); $("buscar").focus({ preventScroll: true }); }
+  else if (t.id === "abrirBolsa") { paso = "bolsa"; $("panel").hidden = false; dibujar(); }
+  else if (t.id === "cerrarBolsa" || t.id === "seguir") $("panel").hidden = true;
+  else if (t.id === "continuar") { paso = "datos"; dibujar(); }
+  else if (t.id === "volver") { paso = "bolsa"; dibujar(); }
+  else if (t.id === "enviar") { const txt = armarTexto(); if (txt) { paso = { texto: txt }; dibujar(); } }
+  else if (t.id === "copiar") {
+    const txt = paso.texto;
+    const sel = () => { getSelection().selectAllChildren($("resumen")); toast("Seleccioná y copiá el mensaje"); };
+    try { navigator.clipboard.writeText(txt).then(() => toast("Mensaje copiado"), sel); } catch (er) { sel(); }
+  }
+  else if (t.id === "verMas") { estado.mostrar += POR_PAGINA; render(); }
+});
+document.addEventListener("input", (e) => {
+  if (e.target.dataset.talle) { const it = bolsa.find((i) => i.codigo === e.target.dataset.talle); if (it) { it.talle = e.target.value.trim(); guardar(); } }
+});
+document.addEventListener("change", (e) => {
+  if (e.target.name === "entrega") { $("dDirWrap").hidden = e.target.value !== "envio"; envioDatos(); }
+  if (e.target.name === "pago") envioDatos();
+});
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") { $("panel").hidden = true; $("menuCel").hidden = true; } });
+$("buscar").addEventListener("input", (e) => { estado.q = e.target.value; estado.mostrar = POR_PAGINA; render(); });
+$("orden").addEventListener("change", (e) => { estado.orden = e.target.value; render(); });
+
+iniciar();
+</script>
+
+</body></html>
