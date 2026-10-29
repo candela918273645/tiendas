@@ -2,9 +2,12 @@
 
 Uso: python3 catalogo_ropa.py <vistavie|alterego> <carpeta con productos/*.json> <config.json> <index.html>
 Reescribe window.CATALOGO dentro de index.html. Sale con código 3 si no cambió nada.
+Fotos: las de cada prenda que ya están en fotos/<id>.jpg al lado de index.html (las baja fotos_ropa.py).
 Copia las fórmulas de precio del sistema (precioCon): no publica costos ni proveedores.
 """
 import datetime, glob, json, math, os, re, sys
+
+from fotos_ropa import fotos_de
 
 # Valores por defecto de cada sistema (DEFAULT_CFG); config/general los pisa.
 DEFAULTS = {
@@ -45,9 +48,12 @@ def main(local, dir_prod, cfg_path, html_path):
             v = costo(p) * m * (num(p.get("ajusteLista")) or 1) + ex
         return round(red(v))
 
-    grupos = {}
-    for f in glob.glob(os.path.join(dir_prod, "*.json")):
+    dir_fotos = os.path.join(os.path.dirname(os.path.abspath(html_path)), "fotos")
+    grupos, fotos = {}, {}
+    for f in sorted(glob.glob(os.path.join(dir_prod, "*.json"))):
         p = cargar(f)
+        if p.get("codigo") and fotos_de(p):
+            fotos.setdefault(p.get("codigoBase") or p["codigo"], fotos_de(p))
         if not p.get("codigo") or not p.get("descripcion"):
             continue
         st = int(num(p.get("stock")))
@@ -63,6 +69,11 @@ def main(local, dir_prod, cfg_path, html_path):
     prods = sorted(grupos.values(), key=lambda g: (g["categoria"], g["nombre"]))
     for g in prods:
         g["variantes"].sort(key=lambda v: v["codigo"])
+        fs = ["fotos/%s.jpg" % i for i in fotos.get(g["codigo"], []) if os.path.exists(os.path.join(dir_fotos, i + ".jpg"))]
+        if fs:
+            g["foto"] = fs[0]
+        if len(fs) > 1:
+            g["fotos"] = fs
     assert len(prods) >= 20, "muy pocos productos (%d): no actualizo" % len(prods)
 
     h = open(html_path).read()
