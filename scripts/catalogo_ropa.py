@@ -23,6 +23,21 @@ def num(x):
         return 0.0
 
 
+# Igual que el sistema (baseDe): los talles y colores de una prenda comparten código Possum o código base.
+def base_de(p):
+    return p.get("codigoPossum") or p.get("codigoBase") or str(p["codigo"]).split("-")[0]
+
+
+TALLE_ORD = ["XXS", "XS", "S", "M", "L", "XL", "XXL", "2XL", "XXXL", "3XL", "4XL", "5XL", "U", "UNICO", "ÚNICO"]
+
+
+def orden_talle(v):
+    t = v["talle"].split(" ")[0].upper()
+    if t.replace(".", "", 1).isdigit():
+        return (0, float(t), v["talle"])
+    return (1, TALLE_ORD.index(t) if t in TALLE_ORD else len(TALLE_ORD), v["talle"])
+
+
 def cargar(f):
     j = json.load(open(f))
     return j.get("data", j) if isinstance(j, dict) else j
@@ -53,7 +68,7 @@ def main(local, dir_prod, cfg_path, html_path):
     for f in sorted(glob.glob(os.path.join(dir_prod, "*.json"))):
         p = cargar(f)
         if p.get("codigo") and fotos_de(p):
-            fotos.setdefault(p.get("codigoBase") or p["codigo"], fotos_de(p))
+            fotos.setdefault(base_de(p), fotos_de(p))
         if not p.get("codigo") or not p.get("descripcion"):
             continue
         st = int(num(p.get("stock")))
@@ -62,13 +77,16 @@ def main(local, dir_prod, cfg_path, html_path):
         c = precio(p, "multContado")
         if c <= 0:
             continue
-        base = p.get("codigoBase") or p["codigo"]
+        base = base_de(p)
         nom, _, var = p["descripcion"].partition(" · ")
         g = grupos.setdefault(base, dict(codigo=base, nombre=nom.strip(), categoria=p.get("categoria") or "OTROS", variantes=[]))
         g["variantes"].append(dict(codigo=p["codigo"], talle=var.strip(), stock=st, contado=c, cuotas3=precio(p, "mult3"), cuotas6=precio(p, "mult6")))
     prods = sorted(grupos.values(), key=lambda g: (g["categoria"], g["nombre"]))
     for g in prods:
-        g["variantes"].sort(key=lambda v: v["codigo"])
+        g["variantes"].sort(key=orden_talle)
+        if len(g["variantes"]) > 1:
+            for v in g["variantes"]:
+                v["talle"] = v["talle"] or "Sin talle"
         fs = ["fotos/%s.jpg" % i for i in fotos.get(g["codigo"], []) if os.path.exists(os.path.join(dir_fotos, i + ".jpg"))]
         if fs:
             g["foto"] = fs[0]
