@@ -216,6 +216,7 @@ footer .legal { grid-column: 1 / -1; border-top: 1px solid color-mix(in srgb, va
   .portada .in { min-height: 0; padding-block: 72px 40px; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+.aviso-datos { font-size: .78rem; opacity: .7; margin: 4px 0 0; }
 </style>
 <!-- cuerpo -->
 </head>
@@ -347,7 +348,45 @@ let estado = { cat: "", mat: "", q: "", orden: "", modo: "menor", mostrar: POR_P
 let carrito = [];   // {codigo, cant}
 let paso = "carrito";
 
-function guardar() { try { localStorage.setItem("cj-carrito", JSON.stringify({ carrito, modo: estado.modo })); } catch (e) {} }
+function guardar() { try { localStorage.setItem("cj-carrito", JSON.stringify({ carrito, modo: estado.modo })); } catch (e) {} anotarCarrito(); }
+
+// Carritos: cada cambio se anota en la planilla de las dueñas, así en el local ven los carritos que quedan sin mandar.
+// Estados: armando (sin datos), datos (puso nombre y WhatsApp), enviado (abrió WhatsApp o copió el mensaje), vacio.
+const CARRITOS_URL = "https://script.google.com/macros/s/AKfycbzzWEp2shLDgtyWl-6MBPH7PEFz6K8rNKT820WuzagSJIpElNOzDgURJbMIeojqCcTW6Q/exec";
+const carritoDatos = { nombre: "", tel: "", pago: "" };
+let carritoId = null, carritoEnviado = false;
+try { carritoId = localStorage.getItem("cj-cid"); carritoEnviado = localStorage.getItem("cj-cid-env") === "1"; } catch (e) {}
+function itemsCarrito() {
+  return carrito.map((i) => { const p = porCodigo.get(i.codigo); return p && { codigo: i.codigo, nombre: titulo(nombreDe(p)), op: i.op || "", cant: i.cant, precio: estado.modo === "mayor" ? p.mayor : p.contado }; }).filter(Boolean);
+}
+function anotarCarrito(estadoC) {
+  if (!CARRITOS_URL || location.protocol === "file:") return;
+  clearTimeout(anotarCarrito.t);
+  if (estadoC === "enviado") mandarCarrito(estadoC); else anotarCarrito.t = setTimeout(mandarCarrito, 4000);
+}
+function mandarCarrito(estadoC) {
+  const items = itemsCarrito();
+  if (!carritoId || (carritoEnviado && estadoC !== "enviado")) {
+    if (!items.length) return;   // carrito nuevo vacío: nada que anotar
+    carritoId = Date.now().toString(36) + Math.random().toString(36).slice(2, 10); carritoEnviado = false;
+    try { localStorage.setItem("cj-cid", carritoId); localStorage.removeItem("cj-cid-env"); } catch (e) {}
+  }
+  const estadoFinal = estadoC || (!items.length ? "vacio" : carritoDatos.tel.replace(/\D/g, "").length >= 8 ? "datos" : "armando");
+  const cuerpo = { local: "joyas", id: carritoId, estado: estadoFinal, nombre: carritoDatos.nombre, tel: carritoDatos.tel, pago: carritoDatos.pago,
+    modo: estado.modo === "mayor" ? "mayor" : "menor", items, total: items.reduce((t, i) => t + i.precio * i.cant, 0) };
+  fetch(CARRITOS_URL, { method: "POST", mode: "no-cors", keepalive: true, headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(cuerpo) }).catch(() => {});
+  if (estadoFinal === "enviado") { carritoEnviado = true; try { localStorage.setItem("cj-cid-env", "1"); } catch (e) {} }
+}
+function leerDatosCarrito() {
+  const v = (id) => (document.getElementById(id) || {}).value || "";
+  const pago = document.querySelector('input[name="pago"]:checked');
+  Object.assign(carritoDatos, { nombre: v("dNombre").trim().slice(0, 80), tel: v("dTel").trim().slice(0, 30), pago: pago ? pago.value : "" });
+}
+document.addEventListener("input", (e) => { if (e.target.id === "dNombre" || e.target.id === "dTel") { leerDatosCarrito(); anotarCarrito(); } });
+document.addEventListener("change", (e) => { if (e.target.name === "pago") { leerDatosCarrito(); anotarCarrito(); } });
+document.addEventListener("click", (e) => {
+  if (e.target.closest && (e.target.closest('#pie a[href^="https://wa.me/"]') || e.target.closest("#copiar"))) anotarCarrito("enviado");
+});
 function recuperar() {
   try {
     const d = JSON.parse(localStorage.getItem("cj-carrito") || "null");
@@ -571,6 +610,7 @@ function dibujarPanel() {
       <div class="opciones">${pagos.map(([v, t, m], k) => `<label><input type="radio" name="pago" value="${v}" ${k ? "" : "checked"}> ${t}<span>${ars(m)}</span></label>`).join("")}</div>
       <label>Nota (opcional)<textarea id="dNota" rows="2" placeholder="Talle de anillo, si es para regalo…"></textarea></label>
       <p class="err" id="dErr" hidden></p>
+      ${CARRITOS_URL ? `<p class="aviso-datos">Guardamos tu carrito con tus datos para poder ayudarte si no llegás a mandarlo.</p>` : ""}
     </form>`;
     $("pie").innerHTML = `<button class="cta" id="enviar">Enviar pedido por WhatsApp</button><button class="sec" id="volver">Volver al carrito</button>`;
   } else {
